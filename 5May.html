@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            cursor: none;
+        }
+        #circle{
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: crimson;
+        }
+    </style>
+</head>
+<body>
+    <div id="circle"></div>
+
+    <script>
+        let circle = document.querySelector('#circle')
+
+        let mouseX = 0, mouseY = 0, startX = 0, startY = 0
+
+        // window.onmousemove = e => {
+        //     mouseX = e.clientX;
+        //     mouseY = e.clientY;
+        //     // console.log(e.clientX, e.clientY); //cursor coordinator
+        //     circle.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        // }
+
+        window.addEventListener('mousemove', e => {
+            mouseX = e.clientX
+            mouseY = e.clientY
+        })
+
+        function lerp(s, e, a){
+            return s + (e - s) * a
+        }
+
+        function frame(){
+            requestAnimationFrame(frame)
+
+            startX = lerp(startX, mouseX, 0.08)
+            startY = lerp(startY, mouseY, 0.08)
+
+            circle.style.transform = `translate(${startX}px, ${startY}px)`
+        }
+
+        requestAnimationFrame(frame);
+    </script>
+</body>
+</html>
